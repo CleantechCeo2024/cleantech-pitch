@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTDI - Building Smart Communities, Creating Clean Futures</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #1a1a2e 75%, #0a0a0a 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            overflow-y: auto;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            height: auto;
+            min-height: 100vh;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.1;
+        }
+
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 50%, #10b981 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, #059669 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, #047857 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-10px, -10px) rotate(0deg); }
+            33% { transform: translate(10px, -20px) rotate(120deg); }
+            66% { transform: translate(-20px, 10px) rotate(240deg); }
+        }
+
+        /* Particle Effects */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: particle-float 6s infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes particle-float {
+            0% { transform: translateY(100vh) translateX(0); opacity: 1; }
+            100% { transform: translateY(-100px) translateX(100px); opacity: 0; }
+        }
+
+        /* Slide Container */
+        .slide-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: visible;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100vh;
+            height: auto;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            padding: 2rem;
+            padding-top: 2rem;
+            padding-bottom: 10rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            position: relative;
+            z-index: 10;
+        }
+
+        .slide.prev {
+            transform: translateX(-100px);
+        }
+
+        /* Content Styling */
+        .slide-content {
+            max-width: 1400px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            margin: 0 auto;
+            min-height: auto;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .logo-section {
+            margin-bottom: 3rem;
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+            position: relative;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #10b981, #059669, #047857);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.5;
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .main-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #10b981, #34d399, #6ee7b7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+            animation: title-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes title-glow {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.2); }
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 400;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            color: #94a3b8;
+        }
+
+        .motto {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 300;
+            color: #10b981;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        /* Section Headers */
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #10b981;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #34d399;
+        }
+
+        h3 {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #10b981;
+        }
+
+        p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            color: #e2e8f0;
+        }
+
+        /* Grid Layouts */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        /* Cards */
+        .feature-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            height: auto;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 25px 60px rgba(16, 185, 129, 0.2);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #10b981;
+            line-height: 1.3;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #cbd5e1;
+            flex-grow: 1;
+        }
+
+        /* Team Cards */
+        .team-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            height: auto;
+            min-height: 200px;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(16, 185, 129, 0.3);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+        }
+
+        .team-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .team-card .card-title {
+            font-size: 0.95rem;
+            line-height: 1.2;
+            margin-bottom: 0.8rem;
+        }
+
+        .team-card .card-description {
+            font-size: 0.85rem;
+            line-height: 1.3;
+        }
+
+        /* Stats Section */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #10b981;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+
+        /* Investment Tiers */
+        .investment-tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .tier-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            height: auto;
+            min-height: 180px;
+        }
+
+        .tier-card.featured {
+            border-color: #10b981;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1));
+            transform: scale(1.05);
+        }
+
+        .tier-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: #10b981;
+        }
+
+        .tier-badge {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .tier-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #10b981;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .tier-amount {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #34d399;
+            margin-bottom: 1rem;
+        }
+
+        .tier-benefits {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+
+        /* Call to Action Buttons */
+        .cta-section {
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid #10b981;
+            color: #10b981;
+        }
+
+        .cta-button.secondary:hover {
+            background: #10b981;
+            color: white;
+        }
+
+        /* Visual Elements */
+        .visual-element {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.2);
+        }
+
+        .visual-element::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.1) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(-50%) translateY(-50%); }
+            100% { transform: translateX(-50%) translateY(-50%) rotate(360deg); }
+        }
+
+        .visual-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-btn {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10b981;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            background: #10b981;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Progress Indicator */
+        .progress-indicator {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.3);
+            margin: 0.8rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: #10b981;
+            transform: scale(1.5);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .navigation {
+                flex-wrap: wrap;
+                max-width: 90vw;
+                justify-content: center;
+                position: fixed;
+                bottom: 1rem;
+            }
+            
+            .nav-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .slide {
+                padding: 1rem;
+                padding-bottom: 12rem;
+                min-height: 100vh;
+                height: auto;
+            }
+            
+            .progress-indicator {
+                display: none;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .investment-tiers {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            /* Mobile adjustments for cards */
+            .team-card {
+                padding: 1.2rem;
+                min-height: 180px;
+            }
+            
+            .feature-card {
+                padding: 1.5rem;
+                min-height: 180px;
+            }
+            
+            .tier-card {
+                padding: 1.2rem;
+                min-height: 160px;
+            }
+            
+            .team-card h3 {
+                font-size: 1rem;
+            }
+            
+            .team-card .card-title {
+                font-size: 0.9rem;
+            }
+            
+            .team-card .card-description {
+                font-size: 0.8rem;
+            }
+            
+            body {
+                overflow-y: scroll;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide {
+                padding: 0.5rem;
+                padding-bottom: 14rem;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-card {
+                padding: 1rem;
+                min-height: 160px;
+            }
+            
+            .feature-card {
+                padding: 1.2rem;
+                min-height: 160px;
+            }
+            
+            .tier-card {
+                padding: 1rem;
+                min-height: 140px;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        /* Contact Info Styling */
+        .contact-info {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            text-align: left;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            color: #e2e8f0;
+        }
+
+        /* List Styling */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 2rem;
+            color: #e2e8f0;
+        }
+
+        ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        /* Highlight Text */
+        .highlight {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        /* Special Effects */
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+            border: 1px solid rgba(16, 185, 129, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Particle Effects -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Slide Container -->
+    <div class="slide-container">
+        
+        <!-- Slide 1: Hero -->
+        <div class="slide active" id="slide1">
+            <div class="slide-content hero-content">
+                <div class="logo-section">
+                    <div class="logo">🌍</div>
+                    <div class="main-title">CTDI</div>
+                    <div class="subtitle">CleanTech Development Institute</div>
+                </div>
+                <div class="motto">Building Smart. Living Clean. Empowering Communities.</div>
+                <p style="font-size: 1.4rem; max-width: 700px; margin: 0 auto; opacity: 0.9;">
+                    Revolutionizing Communities through <span class="highlight">Affordable Smart Housing</span>, 
+                    <span class="highlight">Clean Technology</span>, and <span class="highlight">Inclusive Ownership</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 2: The Problem -->
+        <div class="slide" id="slide2">
+            <div class="slide-content">
+                <h1>The Challenge We Face</h1>
+                <div class="content-grid">
+                    <div>
+                        <h2>Broken Housing Systems</h2>
+                        <ul>
+                            <li>7.3 million affordable housing shortage in the US</li>
+                            <li>Outdated infrastructure vulnerable to climate change</li>
+                            <li>Lack of pathways to homeownership for underserved communities</li>
+                            <li>Energy inefficient buildings driving up costs</li>
+                            <li>Limited access to smart technology and digital equity</li>
+                        </ul>
+                        <p style="color: #10b981; font-size: 1.3rem; font-weight: 600; margin-top: 2rem;">
+                            Communities deserve better. It's time for transformation.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="visual-element">
+                            <div class="visual-content">
+                                <div style="font-size: 4rem; margin-bottom: 1rem;">⚠️</div>
+                                <h3>Legacy Housing Crisis</h3>
+                                <p>Inefficient • Expensive • Unsustainable</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: The CleanTech Method -->
+        <div class="slide" id="slide3">
+            <div class="slide-content">
+                <h1>The CleanTech Hybrid Method™</h1>
+                <p style="text-align: center; font-size: 1.4rem; margin-bottom: 3rem; color: #10b981;">
+                    A Revolutionary Closed-Loop Ecosystem for Community Transformation
+                </p>
+                
+                <div class="feature-grid" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="feature-card glow-effect">
+                        <div class="card-icon">🏢</div>
+                        <div class="card-title">CTDI (For-Profit)</div>
+                        <div class="card-description">
+                            Innovation hub driving modular construction, smart technology integration, 
+                            and build-to-rent strategies with industry partnerships
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card glow-effect">
+                        <div class="card-icon">🤝</div>
+                        <div class="card-title">CTDI CDC (Nonprofit)</div>
+                        <div class="card-description">
+                            Community development programs focusing on financial education, 
+                            veteran support, and social service integration
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card glow-effect">
+                        <div class="card-icon">🏠</div>
+                        <div class="card-title">CleanTech Housing REIT</div>
+                        <div class="card-description">
+                            Investment vehicle owning and financing affordable smart homes 
+                            with clear pathways to homeownership
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card glow-effect">
+                        <div class="card-icon">💰</div>
+                        <div class="card-title">Community Capital (CDFI)</div>
+                        <div class="card-description">
+                            Financial inclusion through low-cost loans, down payment assistance, 
+                            and credit building programs
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Smart Infrastructure -->
+        <div class="slide" id="slide4">
+            <div class="slide-content">
+                <h1>Climate-Smart Infrastructure</h1>
+                <div class="content-grid">
+                    <div>
+                        <h2>Resilient • Connected • Sustainable</h2>
+                        <p>Every CleanTech community integrates cutting-edge technology for maximum resilience and efficiency.</p>
+                        
+                        <div class="feature-grid" style="grid-template-columns: 1fr;">
+                            <div class="feature-card">
+                                <div class="card-icon">🌪️</div>
+                                <div class="card-title">FEMA Resilience Standards</div>
+                                <div class="card-description">200+ MPH wind resistance with flood and fire resistant construction</div>
+                            </div>
+                            <div class="feature-card">
+                                <div class="card-icon">⚡</div>
+                                <div class="card-title">Integrated Energy Solutions</div>
+                                <div class="card-description">Solar-ready infrastructure with smart energy management systems</div>
+                            </div>
+                            <div class="feature-card">
+                                <div class="card-icon">📡</div>
+                                <div class="card-title">Digital Equity</div>
+                                <div class="card-description">Telehealth and remote work ready with Cisco networking solutions</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="visual-element">
+                            <div class="visual-content">
+                                <div style="font-size: 4rem; margin-bottom: 1rem;">🏘️</div>
+                                <h3>Smart Community Hub</h3>
+                                <p>GigaCrete • CePods • Solar • Intel/Cisco Integration</p>
+                                <div style="display: flex; justify-content: space-around; margin-top: 2rem; font-size: 1.5rem;">
+                                    <span>☀️</span>
+                                    <span>🔗</span>
+                                    <span>🛡️</span>
+                                    <span>🌱</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Affordable Homeownership Focus -->
+        <div class="slide" id="slide5">
+            <div class="slide-content">
+                <h1>Building Affordable Homeowner Communities</h1>
+                <p style="text-align: center; font-size: 1.4rem; margin-bottom: 3rem; color: #10b981;">
+                    Creating Clear Pathways to Homeownership and Community Wealth Building
+                </p>
+                
+                <!-- Homeownership Journey -->
+                <div style="display: flex; justify-content: center; align-items: center; margin: 3rem 0; gap: 2rem; flex-wrap: wrap;">
+                    <div class="feature-card" style="flex: 1; min-width: 200px; max-width: 250px;">
+                        <div class="card-icon">🏠</div>
+                        <div class="card-title">Affordable Housing</div>
+                        <div class="card-description">Entry point with rental options</div>
+                    </div>
+                    
+                    <div style="font-size: 2rem; color: #10b981;">→</div>
+                    
+                    <div class="feature-card glow-effect" style="flex: 1; min-width: 200px; max-width: 250px;">
+                        <div class="card-icon">🗝️</div>
+                        <div class="card-title">Homeownership</div>
+                        <div class="card-description">Primary focus: affordable ownership pathways</div>
+                    </div>
+                    
+                    <div style="font-size: 2rem; color: #10b981;">→</div>
+                    
+                    <div class="feature-card" style="flex: 1; min-width: 200px; max-width: 250px;">
+                        <div class="card-icon">🤝</div>
+                        <div class="card-title">Community Stakeholder</div>
+                        <div class="card-description">Long-term wealth building</div>
+                    </div>
+                </div>
+
+                <!-- Priority Communities -->
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="card-icon">🎖️</div>
+                        <div class="card-title">Veterans Priority</div>
+                        <div class="card-description">VASH programs and specialized veteran homeownership support</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="card-icon">👵</div>
+                        <div class="card-title">Senior Communities</div>
+                        <div class="card-description">Age-in-place smart homeownership solutions</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="card-icon">🏆</div>
+                        <div class="card-title">First-Time Homebuyers</div>
+                        <div class="card-description">Comprehensive homeownership readiness programs</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="card-icon">💡</div>
+                        <div class="card-title">Financial Education</div>
+                        <div class="card-description">Credit building and wealth creation through ownership</div>
+                    </div>
+                </div>
+                
+                <div style="margin: 3rem auto; padding: 2rem; background: rgba(16, 185, 129, 0.1); border-radius: 20px; max-width: 800px; text-align: center;">
+                    <h3 style="color: #10b981; margin-bottom: 1rem;">Our Primary Mission</h3>
+                    <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+                        <span class="highlight">Building affordable homeowner communities</span> where families achieve 
+                        the American dream through smart, sustainable, and resilient housing solutions.
+                    </p>
+                    <p style="opacity: 0.9;">
+                        While we offer rental options as entry points, our core focus is creating pathways to 
+                        <strong>affordable homeownership</strong> that builds generational wealth.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Market Opportunity -->
+        <div class="slide" id="slide6">
+            <div class="slide-content">
+                <h1>Massive Market Opportunity</h1>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">$1.4T</span>
+                        <div class="stat-label">Global Smart Infrastructure Market by 2025</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">7.3M</span>
+                        <div class="stat-label">Affordable Housing Shortage (US)</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">200+</span>
+                        <div class="stat-label">MPH Wind Resistance (GigaCrete)</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">100%</span>
+                        <div class="stat-label">ESG Compliant Communities</div>
+                    </div>
+                </div>
+                
+                <div style="margin: 3rem 0; padding: 2rem; background: rgba(16, 185, 129, 0.1); border-radius: 20px;">
+                    <h3 style="color: #10b981; margin-bottom: 2rem; text-align: center;">Multiple Revenue Streams</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                        <div class="feature-card">
+                            <div class="card-icon">💼</div>
+                            <div class="card-title">Construction & Development</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">🏠</div>
+                            <div class="card-title">REIT Rental Income</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">💰</div>
+                            <div class="card-title">CDFI Lending Returns</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">📈</div>
+                            <div class="card-title">Property Appreciation</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">⚡</div>
+                            <div class="card-title">Energy Solutions</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">🤝</div>
+                            <div class="card-title">Partnership Revenue</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <p style="font-size: 1.3rem; text-align: center; margin-top: 2rem;">
+                    From Louisiana to California and beyond, CleanTech is demonstrating that 
+                    <span class="highlight">the future of housing is resilient, inclusive, and profitable</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Strategic Partnerships -->
+        <div class="slide" id="slide7">
+            <div class="slide-content">
+                <h1>Strategic Partnership Ecosystem</h1>
+                
+                <!-- Technology Partners -->
+                <div style="margin: 3rem 0;">
+                    <h2 style="text-align: center; margin-bottom: 2rem;">Technology Partners</h2>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="card-icon">🔗</div>
+                            <div class="card-title">CISCO</div>
+                            <div class="card-description">Advanced networking and smart city infrastructure</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">💻</div>
+                            <div class="card-title">INTEL</div>
+                            <div class="card-description">Computing power and IoT integration</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">🏗️</div>
+                            <div class="card-title">GIGACRETE</div>
+                            <div class="card-description">Revolutionary building materials and construction</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">🌿</div>
+                            <div class="card-title">US HEMP</div>
+                            <div class="card-description">Sustainable insulation and building materials</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cross-Sector Coalition -->
+                <div style="margin: 3rem 0;">
+                    <h2 style="text-align: center; margin-bottom: 2rem;">Cross-Sector Coalition</h2>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="card-icon">🏛️</div>
+                            <div class="card-title">Government Partners</div>
+                            <div class="card-description">HUD, FEMA, USDA, State & Local agencies</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">🎖️</div>
+                            <div class="card-title">Veterans Organizations</div>
+                            <div class="card-description">Housing authorities and veteran coalitions</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">👷</div>
+                            <div class="card-title">MWBE Contractors</div>
+                            <div class="card-description">Union and trade partnerships for inclusive development</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">💰</div>
+                            <div class="card-title">Financial Partners</div>
+                            <div class="card-description">NMTC, Opportunity Zones, ESG investment funds</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Leadership Team -->
+        <div class="slide" id="slide8">
+            <div class="slide-content">
+                <h1>Executive Leadership Team</h1>
+                <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: #10b981;">
+                    17-Member Executive Board in Chain of Command Order
+                </p>
+                
+                <!-- Complete Leadership Team -->
+                <div class="team-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                    <div class="team-card glow-effect">
+                        <div class="card-icon">👑</div>
+                        <h3>Dawnita S. Roberts, MBA</h3>
+                        <div class="card-title">Founder, Chairwoman & CEO</div>
+                        <div class="card-description">Global Strategic Advisor | Community Developer</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">💼</div>
+                        <h3>Barbara J. Michael</h3>
+                        <div class="card-title">Chief Financial & Workforce Wellness Officer</div>
+                        <div class="card-description">CFWWO | 30+ years financial operations</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">💰</div>
+                        <h3>KhaLashia Michael</h3>
+                        <div class="card-title">Chief Finance & Health Services Integration</div>
+                        <div class="card-description">CFHSIO | 15+ years accounting & healthcare</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">⚖️</div>
+                        <h3>Christopher T. Cascio, J.D.</h3>
+                        <div class="card-title">General Counsel & Legal Advisor</div>
+                        <div class="card-description">28+ years legal expertise | LSU Law Center J.D.</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">⚙️</div>
+                        <h3>Cheramie "Cher" Reeder</h3>
+                        <div class="card-title">Chief Operations & Client Strategy Officer</div>
+                        <div class="card-description">COCSO | Yale-trained operations expert</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">🏗️</div>
+                        <h3>Tucker Crawford</h3>
+                        <div class="card-title">Director of Construction</div>
+                        <div class="card-description">Construction leadership & smart building design</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">🚛</div>
+                        <h3>Lyell Roberts</h3>
+                        <div class="card-title">Chief Logistics & Infrastructure Officer</div>
+                        <div class="card-description">CLIO | 30+ years logistics & deployment</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">🔧</div>
+                        <h3>Edel Travieso</h3>
+                        <div class="card-title">Chief Engineering & Sustainability Finance</div>
+                        <div class="card-description">CESFO | Licensed engineer | U.S. Air Force veteran</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">🎨</div>
+                        <h3>Tian Mao</h3>
+                        <div class="card-title">Chief Design & Sustainability Officer</div>
+                        <div class="card-description">CDSO | 28+ years sustainable design</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">🏢</div>
+                        <h3>Bradley Cook</h3>
+                        <div class="card-title">Chief Site Strategy & Real Estate Officer</div>
+                        <div class="card-description">CSSREO | Senior Advisor at Stirling Properties</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">📍</div>
+                        <h3>Daniel Cook</h3>
+                        <div class="card-title">Chief Site Acquisition & Development Officer</div>
+                        <div class="card-description">CSADO | Commercial real estate specialist</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">🏘️</div>
+                        <h3>Natasha Chambers</h3>
+                        <div class="card-title">Chief Community Real Estate & Engagement</div>
+                        <div class="card-description">CCREO | 30+ years customer service & real estate</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">🤝</div>
+                        <h3>Sammy Steele</h3>
+                        <div class="card-title">Chief Strategic Relations & Investment Advisor</div>
+                        <div class="card-description">CSRIA | Elite network architect</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">💻</div>
+                        <h3>O'Sha Bell</h3>
+                        <div class="card-title">Chief Technology Integration & Smart Systems</div>
+                        <div class="card-description">CTISO | Computer engineering & systems integration</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">📋</div>
+                        <h3>Da'Shon M. Bell</h3>
+                        <div class="card-title">Legal & Housing Access Advisor</div>
+                        <div class="card-description">Pre-law academic & homebuyer advocate</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">💪</div>
+                        <h3>Ari'Anna L. Bell-Marshall</h3>
+                        <div class="card-title">Resident Wellness & Community Advocacy Officer</div>
+                        <div class="card-description">Housing justice leader & community advocate</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="card-icon">🎓</div>
+                        <h3>Chandler Roberts</h3>
+                        <div class="card-title">Community Growth & First-Time Buyer Youth Advisor</div>
+                        <div class="card-description">LSU Business & Real Estate student</div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: rgba(16, 185, 129, 0.1); border-radius: 20px;">
+                    <h3 style="color: #10b981; margin-bottom: 1rem;">Complete Executive Leadership Structure</h3>
+                    <p>17 specialized executives in chain of command order covering every aspect of CleanTech operations</p>
+                    <p style="font-size: 1.1rem; margin-top: 1rem; color: #10b981; font-weight: 600;">
+                        🏆 Comprehensive leadership across innovation, equity, and excellence
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Investment Opportunity -->
+        <div class="slide" id="slide9">
+            <div class="slide-content">
+                <h1>Investment Opportunity</h1>
+                <p style="text-align: center; font-size: 1.6rem; color: #10b981; margin-bottom: 3rem; font-weight: 600;">
+                    CleanTech ROI Projections – Tailored for Diverse Investor Profiles
+                </p>
+                
+                <!-- Investment Tiers -->
+                <div class="investment-tiers">
+                    <div class="tier-card">
+                        <div class="tier-badge">🥉</div>
+                        <div class="tier-title">Bronze Tier</div>
+                        <div class="tier-amount">$50K - $250K</div>
+                        <div class="tier-benefits">Strategic Partner • Quarterly Updates • Community Naming Rights</div>
+                    </div>
+                    
+                    <div class="tier-card">
+                        <div class="tier-badge">🥈</div>
+                        <div class="tier-title">Silver Tier</div>
+                        <div class="tier-amount">$250K - $1M</div>
+                        <div class="tier-benefits">Board Observer • Project Co-Branding • ESG Impact Reports</div>
+                    </div>
+                    
+                    <div class="tier-card featured">
+                        <div class="tier-badge">🥇</div>
+                        <div class="tier-title">Gold Tier</div>
+                        <div class="tier-amount">$1M - $5M</div>
+                        <div class="tier-benefits">Board Seat • Strategic Advisory • Market Expansion Rights</div>
+                    </div>
+                    
+                    <div class="tier-card">
+                        <div class="tier-badge">💎</div>
+                        <div class="tier-title">Platinum Tier</div>
+                        <div class="tier-amount">$5M+</div>
+                        <div class="tier-benefits">Executive Board • IP Licensing • Geographic Exclusivity</div>
+                    </div>
+                </div>
+                
+                <!-- ROI Examples -->
+                <div style="margin: 3rem 0;">
+                    <h2 style="text-align: center; margin-bottom: 2rem;">Projected Returns by Investment Type</h2>
+                    <div class="feature-grid">
+                        <div class="feature-card glow-effect">
+                            <div class="card-icon">💼</div>
+                            <div class="card-title">Angel/Seed Investment</div>
+                            <div class="card-description">
+                                <strong>$500K Example:</strong><br>
+                                5-Year Total Return: $870K - $950K<br>
+                                <span class="highlight">Cumulative ROI: 74% - 90%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card glow-effect">
+                            <div class="card-icon">🏢</div>
+                            <div class="card-title">CleanTech Housing REIT</div>
+                            <div class="card-description">
+                                <strong>$2M Example:</strong><br>
+                                5-Year Total Return: $2.98M - $3.1M<br>
+                                <span class="highlight">Rental Income + Appreciation</span>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card glow-effect">
+                            <div class="card-icon">🌍</div>
+                            <div class="card-title">ESG/Mission-Aligned</div>
+                            <div class="card-description">
+                                <strong>$1M Example:</strong><br>
+                                5-Year Total Return: $1.5M - $1.8M<br>
+                                <span class="highlight">10-12% + Social Impact</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: rgba(16, 185, 129, 0.1); border-radius: 20px;">
+                    <h3 style="color: #10b981; margin-bottom: 1rem;">⏰ Series A closes December 31, 2025</h3>
+                    <p style="margin-bottom: 1rem;">Submit Letter of Intent within 30 days to secure preferred tier pricing</p>
+                    <p style="opacity: 0.9; font-size: 0.95rem;">
+                        Multiple entry points • Accredited investors only • Securities offered through Reg D 506(c)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Call to Action -->
+        <div class="slide" id="slide10">
+            <div class="slide-content">
+                <div class="cta-section">
+                    <h1>Join the Movement</h1>
+                    <div style="font-size: 1.8rem; color: #10b981; margin-bottom: 2rem; font-style: italic;">
+                        "More than a model—it's a movement."
+                    </div>
+                    <p style="font-size: 1.4rem; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                        Partner with CTDI to build tomorrow's communities today. Together, we'll create sustainable, 
+                        resilient, and intelligent communities that transform lives, build wealth, and protect our planet.
+                    </p>
+                    
+                    <!-- Impact Areas -->
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="card-icon">🌍</div>
+                            <div class="card-title">Environmental Impact</div>
+                            <div class="card-description">ESG-aligned returns with measurable social benefit</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">💼</div>
+                            <div class="card-title">Economic Mobility</div>
+                            <div class="card-description">MWBE engagement and green job creation</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">🏠</div>
+                            <div class="card-title">Housing Justice</div>
+                            <div class="card-description">Affordable smart housing for all communities</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">📈</div>
+                            <div class="card-title">Financial Returns</div>
+                            <div class="card-description">Profitable and scalable growth model</div>
+                        </div>
+                    </div>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="cta-buttons">
+                        <button class="cta-button">💰 Start Your Investment</button>
+                        <button class="cta-button secondary">📋 Download Investor Pack</button>
+                        <button class="cta-button secondary">📞 Schedule Due Diligence Call</button>
+                    </div>
+                    
+                    <!-- Contact Information -->
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <span>👤</span>
+                                <strong>Dawnita S. Roberts, MBA</strong>
+                            </div>
+                            <div class="contact-item">
+                                <span>📞</span>
+                                225-709-7380 (Office) | 225-709-7384 (Fax)
+                            </div>
+                            <div class="contact-item">
+                                <span>📱</span>
+                                225-264-3215 (Cell)
+                            </div>
+                            <div class="contact-item">
+                                <span>✉️</span>
+                                Dawnita@cleantech.institute
+                            </div>
+                            <div class="contact-item">
+                                <span>🌐</span>
+                                www.cleantech.institute
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn active" onclick="goToSlide(1)">Hero</button>
+        <button class="nav-btn" onclick="goToSlide(2)">Problem</button>
+        <button class="nav-btn" onclick="goToSlide(3)">Method</button>
+        <button class="nav-btn" onclick="goToSlide(4)">Tech</button>
+        <button class="nav-btn" onclick="goToSlide(5)">Housing</button>
+        <button class="nav-btn" onclick="goToSlide(6)">Market</button>
+        <button class="nav-btn" onclick="goToSlide(7)">Partners</button>
+        <button class="nav-btn" onclick="goToSlide(8)">Team</button>
+        <button class="nav-btn" onclick="goToSlide(9)">Investment</button>
+        <button class="nav-btn" onclick="goToSlide(10)">Action</button>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="progress-indicator">
+        <div class="progress-dot active" onclick="goToSlide(1)"></div>
+        <div class="progress-dot" onclick="goToSlide(2)"></div>
+        <div class="progress-dot" onclick="goToSlide(3)"></div>
+        <div class="progress-dot" onclick="goToSlide(4)"></div>
+        <div class="progress-dot" onclick="goToSlide(5)"></div>
+        <div class="progress-dot" onclick="goToSlide(6)"></div>
+        <div class="progress-dot" onclick="goToSlide(7)"></div>
+        <div class="progress-dot" onclick="goToSlide(8)"></div>
+        <div class="progress-dot" onclick="goToSlide(9)"></div>
+        <div class="progress-dot" onclick="goToSlide(10)"></div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 10;
+
+        // Initialize particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Slide navigation
+        function goToSlide(slideNumber) {
+            if (slideNumber === currentSlide) return;
+            
+            // Hide all slides first
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active', 'prev');
+                slide.style.position = 'absolute';
+                slide.style.visibility = 'hidden';
+            });
+            
+            // Show new slide
+            setTimeout(() => {
+                currentSlide = slideNumber;
+                const newSlideEl = document.getElementById(`slide${currentSlide}`);
+                newSlideEl.style.position = 'relative';
+                newSlideEl.style.visibility = 'visible';
+                newSlideEl.classList.add('active');
+                
+                // Reset scroll position to top
+                window.scrollTo(0, 0);
+                newSlideEl.scrollTop = 0;
+                
+                updateNavigation();
+                animateSlideContent(newSlideEl);
+            }, 100);
+        }
+
+        // Update navigation indicators
+        function updateNavigation() {
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach((btn, index) => {
+                btn.classList.toggle('active', index + 1 === currentSlide);
+            });
+            
+            // Update progress dots
+            document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index + 1 === currentSlide);
+            });
+        }
+
+        // Animate slide content
+        function animateSlideContent(slideEl) {
+            const cards = slideEl.querySelectorAll('.feature-card, .team-card, .stat-card, .tier-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSlide < totalSlides) {
+                goToSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowLeft' && currentSlide > 1) {
+                goToSlide(currentSlide - 1);
+            } else if (e.key === 'Home') {
+                goToSlide(1);
+            } else if (e.key === 'End') {
+                goToSlide(totalSlides);
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0 && currentSlide < totalSlides) {
+                    // Swipe left - next slide
+                    goToSlide(currentSlide + 1);
+                } else if (diff < 0 && currentSlide > 1) {
+                    // Swipe right - previous slide
+                    goToSlide(currentSlide - 1);
+                }
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            animateSlideContent(document.getElementById('slide1'));
+            
+            // Add smooth hover effects to interactive elements
+            const interactiveElements = document.querySelectorAll('.feature-card, .team-card, .stat-card, .tier-card, .cta-button');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    el.style.transform = el.classList.contains('cta-button') ? 'translateY(-3px)' : 'translateY(-5px)';
+                });
+                
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = 'translateY(0)';
+                });
+            });
+        });
+
+        // Auto-advance functionality (optional - uncomment to enable)
+        /*
+        setInterval(() => {
+            if (currentSlide < totalSlides) {
+                goToSlide(currentSlide + 1);
+            } else {
+                goToSlide(1);
+            }
+        }, 15000); // Auto-advance every 15 seconds
+        */
+    </script>
+</body>
+</html>
